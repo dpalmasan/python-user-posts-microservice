@@ -10,7 +10,6 @@ python = "^3.8"
 fastapi = "^0.73.0"
 uvicorn = {extras = ["standard"], version = "^0.17.4"}
 pymongo = "^4.0.1"
-bson = "^0.5.10"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
