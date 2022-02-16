@@ -4,20 +4,25 @@ from models.user import BlogPost
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from datetime import datetime
+from grpc_api import auth_service_client
 
 
 app = FastAPI()
 
 
 @app.middleware("http")
-async def auth_required(request: Request, call_next):
-    auth_string = request.cookies.get("access_token")
-    if auth_string is not None and auth_string == "djsaksdhADSJHDSA17823":
-        response = await call_next(request)
-        return response
+async def auth_validation(request: Request, call_next):
+    token = request.cookies["access_token"]
+
+    try:
+        if auth_service_client.validate_token(token):
+            response = await call_next(request)
+            return response
+    except Exception:
+        pass
 
     return JSONResponse(
-        content={"detail": "Not authorized"},
+        content={"detail": "User not authenticated"},
         status_code=status.HTTP_401_UNAUTHORIZED,
     )
 
