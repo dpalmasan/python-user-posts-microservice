@@ -17,7 +17,7 @@ async def auth_validation(request: Request, call_next):
     token = request.cookies.get("access_token", "")
 
     try:
-        if True or auth_service_client.validate_token(token):
+        if auth_service_client.validate_token(token):
             response = await call_next(request)
             return response
     except Exception as e:
