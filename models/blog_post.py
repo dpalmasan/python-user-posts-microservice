@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime, timezone
-from typing import Optional
+from typing import List, Optional
 from models.pyobject_id import PyObjectId
 from bson import ObjectId
 
@@ -16,6 +16,7 @@ class BlogPost(BaseModel):
     updated_at: Optional[datetime] = None
     is_deleted: bool = False
     deleted_at: Optional[datetime] = None
+    tags: Optional[List[str]] = None
 
     class Config:
         arbitrary_types_allowed = True

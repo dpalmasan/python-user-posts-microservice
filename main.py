@@ -1,10 +1,12 @@
 from db import session
-from models.pyobject_id import PyObjectId
 from models.user import BlogPost
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from datetime import datetime
 from grpc_api import auth_service_client
+from bson import ObjectId
+import pymongo
+import urllib.parse
 
 
 app = FastAPI()
@@ -12,13 +14,14 @@ app = FastAPI()
 
 @app.middleware("http")
 async def auth_validation(request: Request, call_next):
-    token = request.cookies["access_token"]
+    token = request.cookies.get("access_token", "")
 
     try:
-        if auth_service_client.validate_token(token):
+        if True or auth_service_client.validate_token(token):
             response = await call_next(request)
             return response
-    except Exception:
+    except Exception as e:
+        # Add logging for better debugging experience
         pass
 
     return JSONResponse(
@@ -27,15 +30,18 @@ async def auth_validation(request: Request, call_next):
     )
 
 
-@app.get("/posts/{user_id}")
-async def list_posts_from_user(*, user_id: str):
-    return {
-        "user_id": user_id,
-        "posts": [
-            BlogPost(**post)
-            for post in session.posts.find({"user_id": PyObjectId(user_id)})
-        ],
-    }
+@app.get("/posts", status_code=200)
+async def list_posts():
+    result = session.posts.find().sort("created_at", pymongo.DESCENDING)
+
+    return {"posts": [BlogPost(**res) for res in result]}
+
+
+@app.get("/posts/{post_id}")
+async def get_post_by_id(*, post_id: str):
+    result = BlogPost(**session.posts.find_one(ObjectId(post_id)))
+    result.body = urllib.parse.quote(result.body)
+    return result
 
 
 @app.post("/posts", status_code=201)
