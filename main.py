@@ -12,7 +12,8 @@ import urllib.parse
 app = FastAPI()
 
 
-@app.middleware("http")
+# Disabled to test auth on API gateway
+# @app.middleware("http")
 async def auth_validation(request: Request, call_next):
     token = request.cookies.get("access_token", "")
 
