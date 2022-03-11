@@ -1,0 +1,6 @@
+db:
+  db_uri: "mongodb://blog-svc-mongodb"
+  db_port: 7000
+  db_user: ""
+  db_pass: ""
+  db_name: "blog"

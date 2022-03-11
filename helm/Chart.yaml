@@ -1,0 +1,20 @@
+apiVersion: v1
+description: BlogPost micro-service
+name: blog-service
+version: 0.1.0
+keywords:
+- blog
+- post
+- microservice
+- python
+home: https://github.com/dpalmasan/python-user-posts-microservice
+sources:
+- https://github.com/dpalmasan/python-user-posts-microservice
+maintainers:
+- name: Diego Palma
+  url: https://github.com/dpalmasan
+engine: gotpl
+dependencies:
+- name: mongodb
+  version: 8.2.1
+  repository: https://charts.bitnami.com/bitnami
