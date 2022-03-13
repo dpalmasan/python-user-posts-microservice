@@ -20,7 +20,7 @@ logger.addHandler(ch)
 
 cwd = os.getcwd()
 logger.info(f"Working directory {cwd}")
-logger.info(f"Files {os.listdir(cwd)}")
+logger.info(f"Files {os.listdir(os.path.join(cwd, 'app_config'))}")
 config_file = Path("app_config/config.yaml")
 if not config_file.exists():
     logger.info("No app_config/config.yaml was found ")
