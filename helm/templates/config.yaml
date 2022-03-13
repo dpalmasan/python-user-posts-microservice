@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: config-file
 binaryData:
-{{ range $path, $bytes := .Files.Glob (printf "dev.yaml")}}
-{{ $name := base $path }}
-{{- printf "%s" $name}}{{ print ": "}}{{ $.Files.Get $path | b64enc }}
-{{ end }}
+  {{ range $path, $bytes := .Files.Glob (printf "dev.toml") }}
+  {{ $name := base $path }}
+  {{- printf "%s" $name}}{{ print ": "}}{{ $.Files.Get $path | b64enc }}
+  {{ end }}

@@ -44,12 +44,15 @@ spec:
 {{ toYaml .Values.server.resources | indent 12 }}
           volumeMounts:
             - name: config-file-volume
-              mountPath: /app/app_config
+              mountPath: /app/app_config/config.yaml
               subPath: config.yaml
       volumes:
         - name: config-file-volume
           configMap:
             name: config-file
+            items:
+              - key: dev.toml
+                path: config.yaml
     {{- if .Values.server.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.server.nodeSelector | indent 8 }}
