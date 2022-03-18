@@ -1,4 +1,5 @@
 from db import session
+from models.blog_post import PartialBlogPost
 from models.user import BlogPost
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
@@ -40,7 +41,26 @@ async def list_posts():
 
 @app.get("/posts/{post_id}")
 async def get_post_by_id(*, post_id: str):
-    result = BlogPost(**session.posts.find_one(ObjectId(post_id)))
+    post = session.posts.find_one(ObjectId(post_id))
+    if post is None:
+        return {}
+    result = BlogPost(**post)
+    result.body = urllib.parse.quote(result.body)
+    return result
+
+
+@app.patch("/posts/{post_id}")
+async def update_post_by_id(*, post_id: str, post: PartialBlogPost):
+    post.updated_at = datetime.now()
+    post_dict = post.dict(exclude_unset=True)
+    result = session.posts.update_one(
+        {"_id": ObjectId(post_id)}, {"$set": post_dict}
+    )
+    if result.modified_count == 0:
+        return {}
+    updated_post = session.posts.find_one(ObjectId(post_id))
+
+    result = BlogPost(**updated_post)
     result.body = urllib.parse.quote(result.body)
     return result
 
