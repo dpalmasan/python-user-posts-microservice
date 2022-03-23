@@ -36,11 +36,11 @@ You can run it in `minikube` by running:
 cd helm && helm dependency build && cd -
 
 # Run application
-helm \                                                            
+helm \
     --kube-context=minikube \
     --create-namespace \
     --namespace=blog-svc \
     upgrade --install --force --recreate-pods\
-    auth-svc \
+    blog-svc \
     helm
 ```
