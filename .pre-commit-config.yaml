@@ -1,14 +1,8 @@
 fail_fast: false
 exclude: grpc_api
 repos:
--   repo: https://github.com/psf/black
-    rev: 20.8b1
-    hooks:
-    -    id: black
-         stages: [commit]
-         language_version: python3.8
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v1.2.3
+-   repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
     hooks:
     -   id: flake8
         stages: [commit]
