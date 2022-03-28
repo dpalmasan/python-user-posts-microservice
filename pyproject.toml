@@ -18,6 +18,10 @@ black = "^22.1.0"
 flake8 = "^4.0.1"
 pytest = "^7.0.0"
 grpcio-tools = "^1.43.0"
+pytest-cov = "^3.0.0"
+pre-commit = "^2.17.0"
+mypy = "^0.942"
+types-PyYAML = "^6.0.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -39,3 +43,19 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = ["tests/*"]
+
+[tool.pytest.ini_options]
+minversion = "6.0.0rc1"
+# Always using Coverage.py disables debugging.
+addopts = "--cov=. -ra -v"
+testpaths = [
+  "tests",
+]
+
+[tool.mypy]
+exclude = ["grpc_api/", "config/"]

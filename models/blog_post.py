@@ -1,8 +1,13 @@
-from pydantic import BaseModel, Field
-from datetime import datetime, timezone
-from typing import List, Optional
-from models.pyobject_id import PyObjectId
+from datetime import datetime
+from datetime import timezone
+from typing import List
+from typing import Optional
+
 from bson import ObjectId
+from pydantic import BaseModel
+from pydantic import Field
+
+from models.pyobject_id import PyObjectId
 
 
 class PartialBlogPost(BaseModel):
@@ -23,7 +28,7 @@ class PartialBlogPost(BaseModel):
 
 class BlogPost(PartialBlogPost):
     id: Optional[PyObjectId] = Field(alias="_id")
-    user_id: PyObjectId
+    user_id: Optional[PyObjectId] = None
     title: str
     body: str
     created_at: datetime = Field(

@@ -1,6 +1,7 @@
-import yaml
-from pydantic.dataclasses import dataclass
 from pathlib import Path
+
+import yaml  # type: ignore
+from pydantic.dataclasses import dataclass
 
 
 @dataclass

@@ -1,13 +1,18 @@
+import urllib.parse
+from datetime import datetime
+
+import pymongo
+from bson import ObjectId
+from fastapi import FastAPI
+from fastapi import Request
+from fastapi import status
+from fastapi.responses import JSONResponse
+
 from db import session
+from grpc_api import auth_service_client
 from models.blog_post import PartialBlogPost
 from models.user import BlogPost
-from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
-from datetime import datetime
-from grpc_api import auth_service_client
-from bson import ObjectId
-import pymongo
-import urllib.parse
+from utils.auth import get_claims_from_token
 
 
 app = FastAPI()
@@ -24,6 +29,7 @@ async def auth_validation(request: Request, call_next):
             return response
     except Exception as e:
         # Add logging for better debugging experience
+        print(e)
         pass
 
     return JSONResponse(
@@ -66,7 +72,10 @@ async def update_post_by_id(*, post_id: str, post: PartialBlogPost):
 
 
 @app.post("/posts", status_code=201)
-async def create_user_post(*, post: BlogPost):
+async def create_user_post(*, req: Request, post: PartialBlogPost):
+    jwt_token = req.headers["Authorization"].split()[1]
+    user_id = get_claims_from_token(jwt_token)["user_id"]
+    post.user_id = user_id
     post.created_at = datetime.utcnow()
     post.is_deleted = False
     result = session.posts.insert_one(post.dict())
