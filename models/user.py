@@ -1,8 +1,10 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from models.blog_post import BlogPost
-from models.pyobject_id import PyObjectId
+from typing import Optional
+
 from bson import ObjectId
+from pydantic import BaseModel
+from pydantic import Field
+
+from models.pyobject_id import PyObjectId
 
 
 class BlogUser(BaseModel):

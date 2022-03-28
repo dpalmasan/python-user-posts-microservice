@@ -22,6 +22,7 @@ pytest-cov = "^3.0.0"
 pre-commit = "^2.17.0"
 mypy = "^0.942"
 types-PyYAML = "^6.0.5"
+types-protobuf = "^3.19.15"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -41,6 +42,7 @@ exclude = '''
   | buck-out
   | build
   | dist
+  | grpc_api
 )/
 '''
 
@@ -59,3 +61,10 @@ testpaths = [
 
 [tool.mypy]
 exclude = ["grpc_api/", "config/"]
+
+[[tool.mypy.overrides]]
+
+module = [
+    "google.protobuf"
+]
+ignore_missing_imports = true

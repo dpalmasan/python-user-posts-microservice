@@ -10,8 +10,8 @@ from fastapi.responses import JSONResponse
 
 from db import session
 from grpc_api import auth_service_client
+from models.blog_post import BlogPost
 from models.blog_post import PartialBlogPost
-from models.user import BlogPost
 from utils.auth import get_claims_from_token
 
 

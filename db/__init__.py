@@ -1,8 +1,9 @@
-from config import Config
-from db.session import create_db_session
-from pathlib import Path
 import logging
 import os
+from pathlib import Path
+
+from config import Config
+from db.session import create_db_session
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
