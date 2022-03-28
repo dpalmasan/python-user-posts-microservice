@@ -1,5 +1,11 @@
 # Blog Posts Service
 
+<p align="center">
+<a href="https://github.com/dpalmasan/python-user-posts-microservice/actions"><img alt="Build" src="https://github.com/dpalmasan/python-user-posts-microservice/actions/workflows/build.yaml/badge.svg"></a>
+<a href="https://github.com/dpalmasan/python-user-posts-microservice/actions"><img alt="Lint" src="https://github.com/dpalmasan/python-user-posts-microservice/actions/workflows/lint.yaml/badge.svg"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+</p>
+
 This is part of the microservices demo I am working on. This service deals with blog data, in which an authenticated user should be able to:
 
 * Create a Blog entry
