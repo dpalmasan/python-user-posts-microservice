@@ -28,4 +28,4 @@ jobs:
           python -m pip install --upgrade poetry
           poetry install
       - name: Lint
-        run: poetry run black . && poetry run pre-commit run --all-files --show-diff-on-failure
+        run: poetry run pre-commit run --all-files --show-diff-on-failure

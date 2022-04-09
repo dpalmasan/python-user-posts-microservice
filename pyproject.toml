@@ -12,7 +12,7 @@ uvicorn = {extras = ["standard"], version = "^0.17.4"}
 pymongo = "^4.0.1"
 grpcio = "^1.43.0"
 google-api-python-client = "^2.39.0"
-click = "7.1.2"
+click = "8.1.2"
 
 [tool.poetry.dev-dependencies]
 black = "20.8b1"
